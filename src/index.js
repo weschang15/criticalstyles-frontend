@@ -4,15 +4,12 @@ import React from "react";
 import { render } from "react-dom";
 import App from "./App";
 import { apolloClient } from "./config/apolloClient";
-import { RootContext } from "./contexts/RootContext";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
 render(
   <ApolloProvider client={apolloClient}>
-    <RootContext>
-      <App />
-    </RootContext>
+    <App />
   </ApolloProvider>,
   document.getElementById("root")
 );
