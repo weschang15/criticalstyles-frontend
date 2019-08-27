@@ -2,8 +2,8 @@ import { darken } from "polished";
 import React from "react";
 import styled from "styled-components";
 import NotFoundIllustration from "../../assets/404-illustration.svg";
-import { PublicLayout } from "../../Components/Layouts/Layouts";
 import { PrimaryButton } from "../../Elements";
+import { PublicLayout } from "../../Layouts/Layouts";
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.purple};

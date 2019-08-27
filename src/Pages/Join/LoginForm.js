@@ -1,12 +1,9 @@
-import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import { useMutation } from "@apollo/react-hooks";
-
-import { LOGIN } from "../../Mutations";
-import { Fields, Spinner } from "../../Elements";
-import { AuthDispatch } from "../../contexts/AuthContext";
-import { LOGIN_USER } from "../../actions";
 import { darken } from "polished";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Fields, Spinner } from "../../Elements";
+import { LOGIN } from "../../Mutations";
 
 const Form = styled.form`
   label {
@@ -28,7 +25,6 @@ const INITIAL_FIELDS = {
 };
 
 function LoginForm() {
-  const dispatch = useContext(AuthDispatch);
   const [errors, setErrors] = useState([]);
   const [fields, setFields] = useState(INITIAL_FIELDS);
 
@@ -47,21 +43,13 @@ function LoginForm() {
     });
 
     if (data && data.login) {
-      const { ok, auth, errors } = data.login;
+      const { ok, errors } = data.login;
       if (!ok) {
         return setErrors(errors);
       }
 
       setFields(INITIAL_FIELDS);
-      dispatch({
-        type: LOGIN_USER,
-        payload: {
-          user: auth.user,
-          authenticated: ok,
-          accountId: auth.account._id,
-          accountName: auth.account.name
-        }
-      });
+      window.location.assign(process.env.REACT_APP_ADMIN_URL);
     }
   };
 

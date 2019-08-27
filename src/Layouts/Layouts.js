@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Footer from "../../Elements/Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../Components/Navbar/Navbar";
+import Footer from "../Elements/Footer/Footer";
 
 const Main = styled.main`
   position: relative;

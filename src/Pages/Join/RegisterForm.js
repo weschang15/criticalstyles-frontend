@@ -1,12 +1,9 @@
-import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import styled from "styled-components";
 import { darken } from "polished";
-
+import React, { useState } from "react";
+import styled from "styled-components";
 import { Fields, Spinner } from "../../Elements";
 import { CREATE_ACCOUNT } from "../../Mutations";
-import { AuthDispatch } from "../../contexts/AuthContext";
-import { REGISTER_USER } from "../../actions";
 
 const Form = styled.form`
   label {
@@ -31,7 +28,6 @@ const INITIAL_FIELDS = {
 };
 
 function RegisterForm() {
-  const dispatch = useContext(AuthDispatch);
   const [errors, setErrors] = useState([]);
   const [fields, setFields] = useState(INITIAL_FIELDS);
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT);
@@ -54,21 +50,13 @@ function RegisterForm() {
     });
 
     if (data && data.createAccount) {
-      const { ok, account, owner, errors } = data.createAccount;
+      const { ok, errors } = data.createAccount;
       if (!ok) {
         return setErrors(errors);
       }
 
       setFields(INITIAL_FIELDS);
-      dispatch({
-        type: REGISTER_USER,
-        payload: {
-          accountId: account._id,
-          accountName: account.name,
-          authenticated: ok,
-          user: owner
-        }
-      });
+      window.location.assign(process.env.REACT_APP_ADMIN_URL);
     }
   };
 

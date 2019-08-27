@@ -1,10 +1,10 @@
 import { darken } from "polished";
-import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-apollo";
 import styled from "styled-components";
-import { PublicLayout } from "../../Components/Layouts/Layouts";
-import { AuthContext } from "../../contexts/AuthContext";
 import { PageSection, PrimaryCard } from "../../Elements";
+import { PublicLayout } from "../../Layouts/Layouts";
+import { AUTH } from "../../Queries";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
@@ -61,7 +61,20 @@ const FormTab = styled.li`
 function Join() {
   // State for managing whether login tab is showing
   const [showingLogin, toggleTab] = useState(true);
-  const { authenticated } = useContext(AuthContext);
+  const { data, loading } = useQuery(AUTH);
+
+  useEffect(() => {
+    if (data && data.auth) {
+      const { ok } = data.auth;
+      if (ok) {
+        window.location.assign(process.env.REACT_APP_ADMIN_URL);
+      }
+    }
+  });
+
+  if (loading) {
+    return null;
+  }
 
   const handleToggle = e => {
     const target = e.target;
@@ -78,9 +91,7 @@ function Join() {
     return toggleTab(!showingLogin);
   };
 
-  return authenticated ? (
-    <Redirect to="/dashboard" />
-  ) : (
+  return (
     <PublicLayout>
       <Wrapper bgColor="rgba(59, 53, 97, 1)">
         <FormContainer>

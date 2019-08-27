@@ -1,43 +1,21 @@
-import React, { useContext } from "react";
-import { useQuery } from "react-apollo";
-import { BrowserRouter } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { IS_FETCHING, LOGIN_USER } from "./actions";
-import PublicRoutes from "./Components/routes/PublicRoutes";
 import theme from "./config/theme";
-import { AuthDispatch } from "./contexts/AuthContext";
-import { AUTH } from "./Queries";
+import { Home, Join } from "./Pages";
+const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 
 function App() {
-  const dispatch = useContext(AuthDispatch);
-  const { data, loading } = useQuery(AUTH, {
-    onCompleted: () => {
-      if (data && data.auth) {
-        const { auth, ok } = data.auth;
-        if (ok) {
-          const payload = {
-            user: auth.user,
-            authenticated: ok,
-            accountId: auth.account._id,
-            accountName: auth.account.name
-          };
-
-          dispatch({ type: LOGIN_USER, payload });
-        }
-        dispatch({ type: IS_FETCHING, payload: false });
-      }
-    }
-  });
-
-  if (loading) {
-    dispatch({ type: IS_FETCHING, payload: true });
-    return null;
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <PublicRoutes />
+        <Suspense fallback={null}>
+          <Switch>
+            <Route path="/" component={Home} exact />
+            <Route path="/join" component={Join} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
       </BrowserRouter>
     </ThemeProvider>
   );
