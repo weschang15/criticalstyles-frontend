@@ -49,7 +49,7 @@ function LoginForm() {
       }
 
       setFields(INITIAL_FIELDS);
-      // window.location.assign(process.env.REACT_APP_ADMIN_URL);
+      window.location.assign(process.env.REACT_APP_ADMIN_URL);
     }
   };
 

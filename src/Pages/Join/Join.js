@@ -61,7 +61,7 @@ const FormTab = styled.li`
 function Join() {
   // State for managing whether login tab is showing
   const [showingLogin, toggleTab] = useState(true);
-  const { data, loading } = useQuery(AUTH);
+  const { data } = useQuery(AUTH);
 
   useEffect(() => {
     if (data && data.auth) {
@@ -71,10 +71,6 @@ function Join() {
       }
     }
   });
-
-  if (loading) {
-    return null;
-  }
 
   const handleToggle = e => {
     const target = e.target;
