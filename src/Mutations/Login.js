@@ -8,17 +8,6 @@ export default gql`
         path
         message
       }
-      auth {
-        user {
-          firstName
-          lastName
-          email
-        }
-        account {
-          _id
-          name
-        }
-      }
     }
   }
 `;

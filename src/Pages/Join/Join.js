@@ -72,7 +72,7 @@ function Join() {
     }
   });
 
-  const handleToggle = e => {
+  const handleToggle = (e) => {
     const target = e.target;
     const parent = target.parentNode;
     const active = parent.querySelector(".is-active");

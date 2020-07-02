@@ -21,7 +21,7 @@ const Form = styled.form`
 
 const INITIAL_FIELDS = {
   email: "",
-  password: ""
+  password: "",
 };
 
 function LoginForm() {
@@ -30,16 +30,16 @@ function LoginForm() {
 
   const [login, { loading }] = useMutation(LOGIN);
 
-  const handleChange = e =>
+  const handleChange = (e) =>
     setFields({ ...fields, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { data } = await login({
       variables: {
-        input: fields
-      }
+        input: { ...fields },
+      },
     });
 
     if (data && data.login) {
