@@ -1,4 +1,4 @@
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/client";
 import "normalize.css";
 import React from "react";
 import { hydrate, render } from "react-dom";

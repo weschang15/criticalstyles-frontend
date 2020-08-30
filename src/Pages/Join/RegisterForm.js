@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { darken } from "polished";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -24,7 +24,7 @@ const INITIAL_FIELDS = {
   firstName: "",
   lastName: "",
   email: "",
-  password: ""
+  password: "",
 };
 
 function RegisterForm() {
@@ -32,10 +32,10 @@ function RegisterForm() {
   const [fields, setFields] = useState(INITIAL_FIELDS);
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT);
 
-  const handleChange = e =>
+  const handleChange = (e) =>
     setFields({ ...fields, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { name, ...rest } = fields;
@@ -44,9 +44,9 @@ function RegisterForm() {
       variables: {
         input: {
           name,
-          user: rest
-        }
-      }
+          user: rest,
+        },
+      },
     });
 
     if (data && data.createAccount) {

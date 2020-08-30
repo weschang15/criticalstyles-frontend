@@ -1,6 +1,6 @@
 import { darken } from "polished";
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import { PageSection, PrimaryCard } from "../../Elements";
 import { PublicLayout } from "../../Layouts/Layouts";

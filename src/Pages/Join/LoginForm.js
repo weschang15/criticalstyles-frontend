@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { darken } from "polished";
 import React, { useState } from "react";
 import styled from "styled-components";
